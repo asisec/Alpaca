@@ -1,0 +1,7 @@
+.DS_Store
+node_modules
+.env
+app.sqlite
+electron-app/node_modules
+dist/
+out/

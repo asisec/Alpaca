@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alpaca</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-titlebar">
+      <div class="app-titlebar-brand">
+        <span class="app-titlebar-mark">A</span>
+        <span class="app-titlebar-title">Alpaca</span>
+      </div>
+    </div>
+    <main class="app-root">
+      <section id="authView" class="auth-screen">
+        <div class="auth-shell">
+          <header class="auth-topbar">
+            <div class="auth-logo">
+              <span class="auth-logo-mark">A</span>
+              <span class="auth-logo-text">Alpaca</span>
+            </div>
+            <div class="auth-nav-actions">
+              <button type="button" class="auth-tab auth-link-btn" data-tab="login">Giriş</button>
+              <button type="button" class="auth-tab auth-cta-btn" data-tab="register">Kayıt Ol →</button>
+            </div>
+          </header>
+
+          <div class="auth-hero">
+            <h1 id="authTitle">Hesabına Giriş Yap</h1>
+            <p id="authSubtitle">Binlerce etkinliği keşfet, biletini al ve organizasyonunu büyüt — hepsi tek bir panelde.</p>
+          </div>
+
+          <div id="authAlert" class="auth-alert d-none" role="alert"></div>
+
+          <div class="auth-body">
+            <!-- Sol: Form -->
+            <div class="auth-form-wrap">
+              <form id="loginForm" class="auth-form-modern" autocomplete="on">
+                <div class="auth-field">
+                  <label class="auth-label">E-posta</label>
+                  <input class="auth-input" name="email" type="email" placeholder="ornek@alpaca.app" required />
+                </div>
+                <div class="auth-field">
+                  <label class="auth-label">Şifre</label>
+                  <input class="auth-input" name="password" type="password" placeholder="••••••••" required minlength="8" />
+                </div>
+                <button class="auth-submit" type="submit">
+                  <span>Giriş Yap</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+              </form>
+
+              <form id="registerForm" class="auth-form-modern d-none" autocomplete="on">
+                <div class="auth-field">
+                  <label class="auth-label">Hesap Türü</label>
+                  <div class="auth-role-toggle" role="group">
+                    <input type="radio" class="btn-check" name="role" id="roleIndividual" value="individual" checked />
+                    <label class="auth-role-btn" for="roleIndividual">Bireysel</label>
+                    <input type="radio" class="btn-check" name="role" id="roleOrganization" value="organization" />
+                    <label class="auth-role-btn" for="roleOrganization">Organizasyon</label>
+                  </div>
+                </div>
+                <div class="auth-field">
+                  <label class="auth-label">Ad Soyad / Organizasyon Adı</label>
+                  <input class="auth-input" name="displayName" type="text" placeholder="Adınızı girin" required minlength="2" />
+                </div>
+                <div class="auth-field">
+                  <label class="auth-label">E-posta</label>
+                  <input class="auth-input" name="email" type="email" placeholder="ornek@alpaca.app" required />
+                </div>
+                <div class="auth-field-row">
+                  <div class="auth-field">
+                    <label class="auth-label">Şifre</label>
+                    <input class="auth-input" name="password" type="password" placeholder="En az 8 karakter" required minlength="8" />
+                  </div>
+                  <div class="auth-field">
+                    <label class="auth-label">Tekrar</label>
+                    <input class="auth-input" name="password2" type="password" placeholder="Şifreyi tekrar girin" required minlength="8" />
+                  </div>
+                </div>
+                <div id="orgInfo" class="auth-info d-none">
+                  <small>ℹ️ Organizasyon hesapları admin onayına tabidir.</small>
+                </div>
+                <button class="auth-submit" type="submit">
+                  <span>Hesap Oluştur</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+              </form>
+            </div>
+
+            <!-- Ayraç -->
+            <div class="auth-divider" aria-hidden="true">
+              <span>veya</span>
+            </div>
+
+            <!-- Sağ: Hızlı Erişim -->
+            <div class="auth-alt-wrap">
+              <button type="button" class="auth-alt-btn" data-quick-role="individual">
+                <span class="auth-alt-icon">👤</span>
+                <span class="auth-alt-text">Bireysel Olarak Kaydol</span>
+              </button>
+              <button type="button" class="auth-alt-btn" data-quick-role="organization">
+                <span class="auth-alt-icon">🏢</span>
+                <span class="auth-alt-text">Organizasyon Olarak Kaydol</span>
+              </button>
+              <div class="auth-alt-info">
+                <span class="auth-alt-icon">🎫</span>
+                <div>
+                  <strong>Etkinliklere Hızlı Erişim</strong>
+                  <small>Bireysel hesapla anında bilet alın, organizasyonla kendi etkinliğinizi yayınlayın.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="auth-bottom">
+            <a href="#" class="auth-forgot">Şifremi Unuttum?</a>
+          </div>
+
+          <footer class="auth-footer">
+            <button type="button" class="auth-footer-link" id="btnPrivacy">Gizlilik Politikası</button>
+            <span>© Alpaca 2026 — Tüm hakları saklıdır</span>
+          </footer>
+        </div>
+      </section>
+
+      <section id="appView" class="workspace d-none">
+        <aside class="sidebar">
+          <div class="sidebar-brand">
+            <span class="brand-mark" aria-hidden="true">A</span>
+            <div>
+              <div class="brand-name">Alpaca</div>
+              <div class="brand-caption">Bilet yönetimi</div>
+            </div>
+          </div>
+          <nav class="side-nav" aria-label="Ana menü">
+            <button class="active" type="button" data-page="dashboard" data-roles="individual,organization,admin"><span>Genel Bakış</span></button>
+            <button type="button" data-page="events" data-roles="individual,organization,admin"><span>Etkinlikler</span></button>
+            <button type="button" data-page="buy" data-roles="individual,admin"><span>Bilet Al</span></button>
+            <button type="button" data-page="tickets" data-roles="organization,admin"><span>Bilet Tipleri</span></button>
+            <button type="button" data-page="orders" data-roles="individual,organization,admin"><span>Siparişler</span></button>
+            <button type="button" data-page="checkin" data-roles="organization,admin"><span>Giriş Kontrol</span></button>
+            <button type="button" class="d-none" id="navAdmin" data-page="admin" data-roles="admin"><span>Admin</span></button>
+          </nav>
+          <div class="sidebar-footer">
+            <div class="user-profile" id="userProfile">
+              <div class="user-avatar" id="userAvatar">A</div>
+              <div class="user-info">
+                <div class="user-name" id="userName">-</div>
+                <div class="user-role" id="userRole">-</div>
+              </div>
+              <button class="user-logout" id="btnLogout" type="button" title="Çıkış Yap" aria-label="Çıkış Yap">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <div class="content">
+          <header class="topbar">
+            <div class="topbar-main">
+              <h1 id="pageTitle">Genel Bakış</h1>
+              <p class="topbar-subtitle" id="topbarSubtitle">Tüm satış aktivitelerine hızlı bakış.</p>
+            </div>
+            <div class="topbar-greeting" id="topbarGreeting">
+              <span class="topbar-wave">👋</span>
+              <span class="topbar-greeting-text">Merhaba</span>
+            </div>
+          </header>
+
+          <!-- Dashboard Page -->
+          <div id="page-dashboard" class="page-content">
+            <!-- Organization / Admin metrikleri -->
+            <section class="metric-grid d-none" id="metricsOrgAdmin" aria-label="Satış metrikleri">
+              <article class="metric-card">
+                <span>Toplam ciro</span>
+                <strong id="metricRevenue">₺0</strong>
+                <small>Tüm zamanlar</small>
+              </article>
+              <article class="metric-card">
+                <span>Satılan bilet</span>
+                <strong id="metricTickets">0</strong>
+                <small>Tüm zamanlar</small>
+              </article>
+              <article class="metric-card">
+                <span>Doluluk</span>
+                <strong id="metricOccupancy">%0</strong>
+                <small id="metricOccupancyLabel">0 / 0 kontenjan</small>
+              </article>
+              <article class="metric-card warning">
+                <span>Bekleyen işlem</span>
+                <strong id="metricPending">0</strong>
+                <small>Onay bekleyen</small>
+              </article>
+            </section>
+
+            <!-- Individual kullanıcı metrikleri -->
+            <section class="metric-grid d-none" id="metricsIndividual" aria-label="Kişisel özet">
+              <article class="metric-card">
+                <span>Toplam harcama</span>
+                <strong id="metricTotalSpent">₺0</strong>
+                <small>Tüm siparişler</small>
+              </article>
+              <article class="metric-card">
+                <span>Aldığım biletler</span>
+                <strong id="metricTicketsBought">0</strong>
+                <small>Adet</small>
+              </article>
+              <article class="metric-card">
+                <span>Sipariş sayım</span>
+                <strong id="metricOrderCount">0</strong>
+                <small>İşlem</small>
+              </article>
+              <article class="metric-card">
+                <span>Abonelik</span>
+                <strong id="metricSubscriptionCount">0</strong>
+                <small>Takip ettiğin etkinlik</small>
+              </article>
+            </section>
+
+            <section class="dashboard-grid">
+              <article class="panel event-panel">
+                <div class="panel-heading">
+                  <div>
+                    <p class="eyebrow">Etkinlikler</p>
+                    <h2>Yaklaşan satışlar</h2>
+                  </div>
+                  <button class="btn btn-primary d-none" id="btnNewEvent">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Yeni Etkinlik
+                  </button>
+                </div>
+
+                <div class="event-list" id="eventList">
+                  <div class="text-center text-muted py-5">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="mb-3">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <p>Henüz etkinlik yok</p>
+                    <small>İlk etkinliğini oluştur!</small>
+                  </div>
+                </div>
+              </article>
+
+              <aside class="panel checkout-panel" id="checkoutPanel">
+                <div class="panel-heading">
+                  <div>
+                    <p class="eyebrow">Kasa</p>
+                    <h2>Hızlı bilet</h2>
+                  </div>
+                </div>
+                <label class="form-label">Etkinlik</label>
+                <select class="form-select" id="checkoutEventSelect">
+                  <option value="">Etkinlik seçin</option>
+                </select>
+                <label class="form-label mt-2">Müşteri Adı</label>
+                <input class="form-control" id="checkoutCustomerName" type="text" placeholder="Örn: Ahmet Yılmaz" />
+                <label class="form-label mt-2">Adet</label>
+                <input class="form-control" id="checkoutQuantity" type="number" value="1" min="1" />
+                <div class="ticket-choice mt-3">
+                  <button class="active" type="button" data-ticket-type="standard">Standart<br /><strong id="priceStandard">₺-</strong></button>
+                  <button type="button" data-ticket-type="vip">VIP<br /><strong id="priceVip">₺-</strong></button>
+                </div>
+                <div class="checkout-total">
+                  <span>Toplam</span>
+                  <strong id="checkoutTotal">₺0</strong>
+                </div>
+                <button class="btn btn-success w-100" id="btnPlaceOrder" disabled>Sipariş Oluştur</button>
+              </aside>
+            </section>
+          </div>
+
+          <!-- Events Page -->
+          <div id="page-events" class="page-content d-none">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Etkinlikler</p>
+                  <h2>Tüm Etkinlikler</h2>
+                </div>
+                <button class="btn btn-sm btn-primary d-none" id="btnNewEvent2">Yeni Etkinlik</button>
+              </div>
+              <div class="event-list" id="eventListFull">
+                <div class="text-center text-muted py-4">
+                  <small>Henüz etkinlik yok.</small>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Buy Page (Bilet Al) -->
+          <div id="page-buy" class="page-content d-none">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Bilet Al</p>
+                  <h2>Etkinlik & Koltuk Seç</h2>
+                </div>
+              </div>
+
+              <div class="buy-grid">
+                <div class="buy-left">
+                  <div class="buy-field">
+                    <label class="form-label" for="buyEventSelect">Etkinlik</label>
+                    <select class="form-select" id="buyEventSelect">
+                      <option value="">Etkinlik seçin</option>
+                    </select>
+                  </div>
+
+                  <div class="buy-field">
+                    <label class="form-label">Bilet Türü</label>
+                    <div class="ticket-choice">
+                      <button type="button" data-buy-ticket="standard" class="active">
+                        <strong>Standart</strong>
+                        <span id="buyStdPrice">₺-</span>
+                      </button>
+                      <button type="button" data-buy-ticket="vip">
+                        <strong>VIP</strong>
+                        <span id="buyVipPrice">₺-</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="buy-field">
+                    <label class="form-label" for="buyCustomerName">Müşteri Adı</label>
+                    <input class="form-control" id="buyCustomerName" type="text" placeholder="Örn: Ahmet Yılmaz" />
+                  </div>
+
+                  <div class="buy-summary">
+                    <div class="buy-summary-row">
+                      <span>Seçili koltuk</span>
+                      <strong id="buySelectedCount">0</strong>
+                    </div>
+                    <div class="buy-summary-row">
+                      <span>Birim fiyat</span>
+                      <strong id="buyUnitPrice">₺0</strong>
+                    </div>
+                    <div class="buy-summary-row buy-discount-row d-none" id="buyDiscountRow">
+                      <span>İndirim</span>
+                      <strong id="buyDiscountAmount">-₺0</strong>
+                    </div>
+                    <div class="buy-summary-row buy-total-row">
+                      <span>Toplam</span>
+                      <strong id="buyTotal">₺0</strong>
+                    </div>
+                  </div>
+
+                  <button class="btn btn-primary w-100" id="btnBuyTickets" disabled>Satın Al</button>
+                </div>
+
+                <div class="buy-right">
+                  <div class="seat-legend">
+                    <span class="seat-legend-item"><span class="seat-sample seat-available"></span> Boş</span>
+                    <span class="seat-legend-item"><span class="seat-sample seat-selected"></span> Seçili</span>
+                    <span class="seat-legend-item"><span class="seat-sample seat-sold"></span> Dolu</span>
+                  </div>
+                  <div class="seat-stage">SAHNE</div>
+                  <div class="seat-grid" id="seatGrid">
+                    <div class="seat-empty-state">Lütfen önce bir etkinlik seçin.</div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Tickets Page -->
+          <div id="page-tickets" class="page-content d-none">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Bilet Tipleri</p>
+                  <h2>Bilet Türleri</h2>
+                </div>
+              </div>
+              <div class="text-center text-muted py-4">
+                <small>Bilet tipleri yönetimi yakında eklenecek.</small>
+              </div>
+            </section>
+          </div>
+
+          <!-- Orders Page -->
+          <div id="page-orders" class="page-content d-none">
+            <section class="panel orders-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Siparişler</p>
+                  <h2>Son işlemler</h2>
+                </div>
+                <span class="sync-state">Güncel</span>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>Kod</th>
+                      <th>Etkinlik</th>
+                      <th>Müşteri</th>
+                      <th>Bilet</th>
+                      <th>Adet</th>
+                      <th>Koltuk</th>
+                      <th>Tutar</th>
+                      <th>Tarih</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ordersList">
+                    <tr>
+                      <td colspan="8" class="text-center text-muted py-4">
+                        <small>Henüz sipariş yok</small>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+          <!-- Checkin Page -->
+          <div id="page-checkin" class="page-content d-none">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Giriş Kontrol</p>
+                  <h2>QR Kod Okuma</h2>
+                </div>
+              </div>
+              <div class="text-center text-muted py-4">
+                <small>Giriş kontrol sistemi yakında eklenecek.</small>
+              </div>
+            </section>
+          </div>
+
+          <!-- Admin Page -->
+          <div id="page-admin" class="page-content d-none">
+            <section class="panel mb-3">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Admin</p>
+                  <h2>Bekleyen Organizasyonlar</h2>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Organizasyon Adı</th>
+                      <th>E-posta</th>
+                      <th>Kayıt Tarihi</th>
+                      <th>İşlem</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pendingOrgsList">
+                    <tr>
+                      <td colspan="5" class="text-center">Yükleniyor...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Admin</p>
+                  <h2>Tüm Kullanıcılar</h2>
+                </div>
+                <button class="btn btn-sm btn-outline-secondary" id="btnRefreshUsers">Yenile</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Ad</th>
+                      <th>E-posta</th>
+                      <th>Rol</th>
+                      <th>Onay</th>
+                      <th>Admin</th>
+                      <th>Tarih</th>
+                      <th>İşlem</th>
+                    </tr>
+                  </thead>
+                  <tbody id="usersList">
+                    <tr>
+                      <td colspan="8" class="text-center text-muted py-4">Yükleniyor...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastRoot"></div>
+
+      <!-- Gizlilik Politikası Modalı -->
+      <div class="modal fade" id="privacyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          <div class="modal-content privacy-modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Gizlilik Politikası</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body privacy-body">
+              <p>Bu Gizlilik Politikası, platformumuz üzerinden sunulan hizmetlerin kullanımı sırasında toplanan verilerin nasıl işlendiğini, saklandığını ve korunduğunu açıklamaktadır. Veri sorumlusu olarak, kullanıcılarımızın gizliliğine ve kişisel verilerinin korunmasına büyük önem vermekteyiz.</p>
+
+              <h6>1. Toplanan Veriler</h6>
+              <p>Hizmetlerimizi sunabilmek adına aşağıdaki verileri toplamaktayız:</p>
+              <ul>
+                <li><strong>Kimlik Bilgileri:</strong> Ad, soyad.</li>
+                <li><strong>İletişim Bilgileri:</strong> E-posta adresi, telefon numarası.</li>
+                <li><strong>Etkinlik Verileri:</strong> Kayıt olunan etkinlikler, bilet türleri ve katılım durumu.</li>
+                <li><strong>Ödeme Bilgileri:</strong> Ödeme işlemleri aracı kurumlar üzerinden gerçekleştirilmekte olup, kredi kartı bilgileriniz sistemlerimizde saklanmamaktadır.</li>
+                <li><strong>Teknik Veriler:</strong> IP adresi, tarayıcı türü ve kullanım istatistikleri.</li>
+              </ul>
+
+              <h6>2. Verilerin İşlenme Amaçları</h6>
+              <p>Toplanan kişisel veriler şu amaçlarla kullanılır:</p>
+              <ul>
+                <li>Biletleme işlemlerinin gerçekleştirilmesi ve onay süreçlerinin yönetilmesi.</li>
+                <li>Etkinlik sahiplerinin katılımcı listelerine erişiminin sağlanması.</li>
+                <li>Sistem güncellemeleri, güvenlik uyarıları ve teknik destek bildirimlerinin iletilmesi.</li>
+                <li>Yasal yükümlülüklerin yerine getirilmesi.</li>
+              </ul>
+
+              <h6>3. Veri Paylaşımı ve Aktarımı</h6>
+              <p>Kişisel verileriniz, açık rızanız olmaksızın üçüncü taraflarla paylaşılmaz. Ancak aşağıdaki durumlarda paylaşım yapılabilir:</p>
+              <ul>
+                <li><strong>Etkinlik Organizatörleri:</strong> Kayıt olduğunuz etkinliğin yönetimi için gerekli bilgiler organizatör ile paylaşılır.</li>
+                <li><strong>Yasal Zorunluluklar:</strong> Yetkili kamu kurum ve kuruluşlarından gelen talepler doğrultusunda.</li>
+                <li><strong>Hizmet Sağlayıcılar:</strong> E-posta gönderimi veya sunucu barındırma gibi teknik altyapı desteği alınan iş ortakları.</li>
+              </ul>
+
+              <h6>4. Veri Güvenliği</h6>
+              <p>Verileriniz, modern şifreleme yöntemleri ve güvenli sunucularda korunmaktadır. Veri ihlallerini önlemek adına düzenli olarak güvenlik denetimleri gerçekleştirilmekte ve sistemsel güncellemeler yapılmaktadır.</p>
+
+              <h6>5. Kullanıcı Hakları</h6>
+              <p>KVKK ve ilgili mevzuat kapsamında aşağıdaki haklara sahipsiniz:</p>
+              <ul>
+                <li>Verilerinizin işlenip işlenmediğini öğrenme.</li>
+                <li>Eksik veya yanlış işlenmiş verilerin düzeltilmesini isteme.</li>
+                <li>Verilerinizin silinmesini veya yok edilmesini talep etme.</li>
+                <li>İşlenen verilere itiraz etme.</li>
+              </ul>
+
+              <h6>6. İletişim</h6>
+              <p>Gizlilik politikamız hakkındaki sorularınız veya veri talepleriniz için bizimle iletişime geçebilirsiniz:</p>
+              <p class="privacy-contact">
+                <strong>E-posta:</strong> info@etkinlikplatformu.example.com<br />
+                <strong>Adres:</strong> Teknoloji Vadisi No:123, Kat:4, Ofis:8, Şişli / İstanbul
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Etkinlik Detay Modalı -->
+      <div class="modal fade" id="eventDetailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content event-detail-modal">
+            <div class="event-detail-cover" id="eventDetailCover">
+              <div class="event-detail-cover-fallback">📅</div>
+              <button type="button" class="btn-close event-detail-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body event-detail-body">
+              <div class="event-detail-head">
+                <div class="event-detail-date" id="eventDetailDate">
+                  <strong>-</strong><span>-</span>
+                </div>
+                <div class="event-detail-title-wrap">
+                  <h3 class="event-detail-title" id="eventDetailTitle">-</h3>
+                  <div class="event-detail-venue" id="eventDetailVenue">-</div>
+                </div>
+              </div>
+
+              <div class="event-detail-meta-grid">
+                <div class="event-detail-meta">
+                  <span>Standart</span>
+                  <strong id="eventDetailStdPrice">₺-</strong>
+                </div>
+                <div class="event-detail-meta">
+                  <span>VIP</span>
+                  <strong id="eventDetailVipPrice">₺-</strong>
+                </div>
+                <div class="event-detail-meta">
+                  <span>Kontenjan</span>
+                  <strong id="eventDetailCapacity">-</strong>
+                </div>
+                <div class="event-detail-meta">
+                  <span>Doluluk</span>
+                  <strong id="eventDetailOccupancy">%-</strong>
+                </div>
+              </div>
+
+              <div class="event-detail-discount d-none" id="eventDetailDiscount"></div>
+
+              <div class="event-detail-section">
+                <div class="event-detail-section-label">Açıklama</div>
+                <p class="event-detail-description" id="eventDetailDescription">-</p>
+              </div>
+
+              <div class="event-detail-organizer" id="eventDetailOrganizer"></div>
+            </div>
+            <div class="modal-footer event-detail-footer" id="eventDetailFooter"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Etkinlik Oluşturma/Düzenleme Modalı -->
+      <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="eventModalTitle">Yeni Etkinlik Oluştur</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+              <form id="eventForm">
+                <input type="hidden" name="id" value="" />
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Etkinlik Adı</label>
+                  <input class="form-control" name="name" type="text" placeholder="Örn: Yaz Konseri" required />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Açıklama</label>
+                  <textarea class="form-control" name="description" rows="3" placeholder="Etkinlik hakkında detaylı bilgi..."></textarea>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Görsel URL</label>
+                  <input class="form-control" name="imageUrl" type="url" placeholder="https://example.com/image.jpg" />
+                  <small class="text-muted">Etkinlik için bir görsel URL'si</small>
+                </div>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">Mekan</label>
+                    <input class="form-control" name="venue" type="text" placeholder="Örn: KüçükÇiftlik Park" required />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">Tarih</label>
+                    <input class="form-control" name="eventDate" type="date" required />
+                  </div>
+                </div>
+                <div class="row g-3 mt-1">
+                  <div class="col-md-4">
+                    <label class="form-label fw-bold">Kontenjan</label>
+                    <input class="form-control" name="capacity" type="number" placeholder="1000" required min="1" />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-bold">Standart Fiyat (₺)</label>
+                    <input class="form-control" name="standardPrice" type="number" placeholder="450" required min="0" step="0.01" />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-bold">VIP Fiyat (₺)</label>
+                    <input class="form-control" name="vipPrice" type="number" placeholder="900" required min="0" step="0.01" />
+                  </div>
+                </div>
+
+                <hr class="my-3" />
+                <h6 class="text-muted mb-3">Toplu Alım İndirimi (opsiyonel)</h6>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">İndirim Eşiği (Bilet Adedi)</label>
+                    <input class="form-control" name="discountThreshold" type="number" placeholder="0" min="0" value="0" />
+                    <small class="text-muted">Kaç bilet alana indirim uygulansın? (0 = indirim yok)</small>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">İndirim Oranı (%)</label>
+                    <input class="form-control" name="discountPercent" type="number" placeholder="0" min="0" max="100" step="0.1" value="0" />
+                    <small class="text-muted">Yüzde olarak indirim oranı</small>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+              <button type="button" class="btn btn-primary" id="btnSaveEvent">Oluştur</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./renderer.js"></script>
+  </body>
+</html>
