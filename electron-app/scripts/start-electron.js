@@ -1,19 +1,19 @@
 const { spawn } = require("child_process");
-const electronPath = require("electron");
+const path = require("path");
+const electron = require("electron");
 
-const env = { ...process.env };
-delete env.ELECTRON_RUN_AS_NODE;
-
-const child = spawn(electronPath, ["."], {
-  cwd: process.cwd(),
-  env,
-  stdio: "inherit"
+const proc = spawn(String(electron), ["."], {
+  stdio: "inherit",
+  cwd: path.join(__dirname, ".."),
+  env: process.env
 });
 
-child.on("exit", (code, signal) => {
-  if (signal) {
-    process.kill(process.pid, signal);
-    return;
-  }
-  process.exit(code ?? 0);
+proc.on("close", (code, signal) => {
+  if (signal) process.kill(process.pid, signal);
+  else process.exit(code ?? 0);
+});
+
+proc.on("error", (err) => {
+  console.error("Electron başlatılamadı:", err.message);
+  process.exit(1);
 });

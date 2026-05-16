@@ -16,7 +16,15 @@ contextBridge.exposeInMainWorld("api", {
     approveOrg: (userId) => ipcRenderer.invoke("admin:approve-org", userId),
     listUsers: () => ipcRenderer.invoke("admin:users-list"),
     deleteUser: (userId) => ipcRenderer.invoke("admin:delete-user", userId),
-    updateUser: (payload) => ipcRenderer.invoke("admin:update-user", payload)
+    updateUser: (payload) => ipcRenderer.invoke("admin:update-user", payload),
+    resetPassword: (payload) => ipcRenderer.invoke("admin:reset-password", payload),
+    listResetRequests: () => ipcRenderer.invoke("admin:pwreset-list"),
+    resolveResetRequest: (payload) => ipcRenderer.invoke("admin:pwreset-resolve", payload)
+  },
+  pwreset: {
+    check:       (email)   => ipcRenderer.invoke("pwreset:check", email),
+    submit:      (payload) => ipcRenderer.invoke("pwreset:submit", payload),
+    setPassword: (payload) => ipcRenderer.invoke("pwreset:set-password", payload)
   },
   events: {
     create: (payload) => ipcRenderer.invoke("events:create", payload),
@@ -33,5 +41,8 @@ contextBridge.exposeInMainWorld("api", {
   },
   stats: {
     summary: () => ipcRenderer.invoke("stats:summary")
+  },
+  profile: {
+    update: (payload) => ipcRenderer.invoke("profile:update", payload)
   }
 });

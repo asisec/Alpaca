@@ -45,7 +45,13 @@
                 </div>
                 <div class="auth-field">
                   <label class="auth-label">Şifre</label>
-                  <input class="auth-input" name="password" type="password" placeholder="••••••••" required minlength="8" />
+                  <div class="auth-input-wrap">
+                    <input class="auth-input" name="password" id="loginPassword" type="password" placeholder="••••••••" required minlength="8" autocomplete="current-password" />
+                    <button type="button" class="pw-toggle" data-target="loginPassword" aria-label="Şifreyi göster/gizle">
+                      <svg class="pw-eye-icon pw-eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      <svg class="pw-eye-icon pw-eye-hide d-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                    </button>
+                  </div>
                 </div>
                 <button class="auth-submit" type="submit">
                   <span>Giriş Yap</span>
@@ -71,15 +77,34 @@
                   <label class="auth-label">E-posta</label>
                   <input class="auth-input" name="email" type="email" placeholder="ornek@alpaca.app" required />
                 </div>
-                <div class="auth-field-row">
-                  <div class="auth-field">
-                    <label class="auth-label">Şifre</label>
-                    <input class="auth-input" name="password" type="password" placeholder="En az 8 karakter" required minlength="8" />
+                <div class="auth-field">
+                  <label class="auth-label">Şifre</label>
+                  <div class="auth-input-wrap">
+                    <input class="auth-input" name="password" id="regPassword" type="password" placeholder="En az 8 karakter" required minlength="8" autocomplete="new-password" />
+                    <button type="button" class="pw-toggle" data-target="regPassword" aria-label="Şifreyi göster/gizle">
+                      <svg class="pw-eye-icon pw-eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      <svg class="pw-eye-icon pw-eye-hide d-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                    </button>
                   </div>
-                  <div class="auth-field">
-                    <label class="auth-label">Tekrar</label>
-                    <input class="auth-input" name="password2" type="password" placeholder="Şifreyi tekrar girin" required minlength="8" />
+                  <ul class="pw-checklist" id="pwChecklist">
+                    <li class="pw-rule" id="pwRuleLen">En az 8 karakter</li>
+                    <li class="pw-rule" id="pwRuleUpper">Büyük harf (A-Z)</li>
+                    <li class="pw-rule" id="pwRuleLower">Küçük harf (a-z)</li>
+                    <li class="pw-rule" id="pwRuleNum">Rakam (0-9)</li>
+                    <li class="pw-rule" id="pwRuleSym">Özel karakter (!@#...)</li>
+                    <li class="pw-rule" id="pwRuleCommon">Yaygın şifre değil</li>
+                  </ul>
+                </div>
+                <div class="auth-field">
+                  <label class="auth-label">Şifre Tekrar</label>
+                  <div class="auth-input-wrap">
+                    <input class="auth-input" name="password2" id="regPassword2" type="password" placeholder="Şifreyi tekrar girin" required minlength="8" autocomplete="new-password" />
+                    <button type="button" class="pw-toggle" data-target="regPassword2" aria-label="Şifreyi göster/gizle">
+                      <svg class="pw-eye-icon pw-eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      <svg class="pw-eye-icon pw-eye-hide d-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                    </button>
                   </div>
+                  <span class="pw-rule" id="pwRuleMatch"></span>
                 </div>
                 <div id="orgInfo" class="auth-info d-none">
                   <small>ℹ️ Organizasyon hesapları admin onayına tabidir.</small>
@@ -127,6 +152,135 @@
         </div>
       </section>
 
+      <!-- ── Şifremi Unuttum Sayfası ──────────────────────── -->
+      <section id="forgotView" class="auth-screen d-none">
+        <div class="auth-shell">
+          <header class="auth-topbar">
+            <div class="auth-logo">
+              <span class="auth-logo-mark">A</span>
+              <span class="auth-logo-text">Alpaca</span>
+            </div>
+            <button type="button" class="auth-link-btn" id="btnBackToLogin">← Giriş Yap</button>
+          </header>
+
+          <div class="forgot-wrap">
+            <div class="forgot-box">
+
+              <!-- Adım 0: E-posta kontrolü -->
+              <div id="forgotStepEmail">
+                <div class="forgot-head">
+                  <div class="forgot-icon-wrap forgot-icon-neutral">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  </div>
+                  <h2 class="forgot-title">Şifre Sıfırlama</h2>
+                  <p class="forgot-sub">E-posta adresinizi girin, durumunuzu kontrol edelim.</p>
+                </div>
+                <div class="auth-field">
+                  <label class="auth-label">E-posta Adresiniz</label>
+                  <input type="email" class="auth-input" id="forgotEmailInput" placeholder="ornek@mail.com" autocomplete="email" />
+                </div>
+                <button class="auth-submit mt-2" id="btnForgotCheckEmail">
+                  <span>Devam Et</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+              </div>
+
+              <!-- Adım 1: Doğrulama formu -->
+              <div id="forgotStepForm" class="d-none">
+                <div class="forgot-head">
+                  <div class="forgot-icon-wrap forgot-icon-neutral">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  </div>
+                  <h2 class="forgot-title">Kimlik Doğrulama</h2>
+                  <p class="forgot-sub">Aşağıdaki bilgileri doldurun. Admin inceledikten sonra talebiniz değerlendirilecektir.</p>
+                </div>
+                <div class="auth-field">
+                  <label class="auth-label">E-posta</label>
+                  <input type="email" class="auth-input" id="forgotFormEmail" readonly style="opacity:0.7;cursor:default" />
+                </div>
+                <div class="auth-field">
+                  <label class="auth-label">En son hatırladığınız şifre <span class="forgot-optional">(boş bırakılabilir)</span></label>
+                  <div class="auth-input-wrap">
+                    <input type="password" class="auth-input" id="forgotLastPw" placeholder="Son hatırladığınız şifre" autocomplete="off" />
+                    <button type="button" class="pw-toggle" data-target="forgotLastPw" aria-label="Göster/Gizle">
+                      <svg class="pw-eye-icon pw-eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      <svg class="pw-eye-icon pw-eye-hide d-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="auth-field">
+                  <label class="auth-label">Son 3 günde ödediğiniz toplam bilet ücreti (₺) <span class="forgot-optional">(yoksa 0)</span></label>
+                  <input type="number" class="auth-input" id="forgotAmount" placeholder="0" min="0" step="0.01" />
+                </div>
+                <div id="forgotFormAlert" class="forgot-alert forgot-alert-danger d-none"></div>
+                <button class="auth-submit mt-2" id="btnForgotSubmit">
+                  <span>Talep Gönder</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+              </div>
+
+              <!-- Adım 2: Bekliyor -->
+              <div id="forgotStepPending" class="d-none">
+                <div class="forgot-head">
+                  <div class="forgot-icon-wrap forgot-icon-warning">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  </div>
+                  <h2 class="forgot-title">İnceleme Bekleniyor</h2>
+                  <p class="forgot-sub">Talebiniz sistema yöneticisine iletildi. Onay veya red işleminden sonra bu sayfayı tekrar ziyaret edin.</p>
+                </div>
+                <button class="auth-submit" id="btnForgotRecheck">
+                  <span>Durumu Kontrol Et</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.08-5.96"/></svg>
+                </button>
+              </div>
+
+              <!-- Adım 3: Onaylandı -->
+              <div id="forgotStepApproved" class="d-none">
+                <div class="forgot-head">
+                  <div class="forgot-icon-wrap forgot-icon-success">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <h2 class="forgot-title">Talep Onaylandı</h2>
+                </div>
+                <div class="forgot-note-box forgot-note-success" id="forgotAdminNoteApproved"></div>
+                <div class="auth-field mt-3">
+                  <label class="auth-label">Yeni Şifreniz</label>
+                  <div class="auth-input-wrap">
+                    <input type="password" class="auth-input" id="forgotNewPw" placeholder="En az 8 karakter" autocomplete="new-password" />
+                    <button type="button" class="pw-toggle" data-target="forgotNewPw" aria-label="Göster/Gizle">
+                      <svg class="pw-eye-icon pw-eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      <svg class="pw-eye-icon pw-eye-hide d-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                    </button>
+                  </div>
+                </div>
+                <div id="forgotApprovedAlert" class="forgot-alert forgot-alert-danger d-none"></div>
+                <button class="auth-submit mt-2" id="btnForgotSetPw">
+                  <span>Şifremi Kaydet</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </button>
+              </div>
+
+              <!-- Adım 4: Reddedildi -->
+              <div id="forgotStepRejected" class="d-none">
+                <div class="forgot-head">
+                  <div class="forgot-icon-wrap forgot-icon-danger">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  </div>
+                  <h2 class="forgot-title">Talep Reddedildi</h2>
+                </div>
+                <div class="forgot-note-box forgot-note-danger" id="forgotAdminNoteRejected"></div>
+                <p class="forgot-hint">Bilgilerinizi güncelleyerek yeniden talep oluşturabilirsiniz.</p>
+                <button class="auth-submit" id="btnForgotRetry">
+                  <span>Yeniden Talep Oluştur</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.08-5.96"/></svg>
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="appView" class="workspace d-none">
         <aside class="sidebar">
           <div class="sidebar-brand">
@@ -140,10 +294,12 @@
             <button class="active" type="button" data-page="dashboard" data-roles="individual,organization,admin"><span>Genel Bakış</span></button>
             <button type="button" data-page="events" data-roles="individual,organization,admin"><span>Etkinlikler</span></button>
             <button type="button" data-page="buy" data-roles="individual,admin"><span>Bilet Al</span></button>
-            <button type="button" data-page="tickets" data-roles="organization,admin"><span>Bilet Tipleri</span></button>
+            <button type="button" data-page="tickets" data-roles="organization,admin"><span>Bilet Türleri</span></button>
             <button type="button" data-page="orders" data-roles="individual,organization,admin"><span>Siparişler</span></button>
-            <button type="button" data-page="checkin" data-roles="organization,admin"><span>Giriş Kontrol</span></button>
-            <button type="button" class="d-none" id="navAdmin" data-page="admin" data-roles="admin"><span>Admin</span></button>
+            <button type="button" data-page="checkin" data-roles="organization,admin"><span>Kapı Kontrolü</span></button>
+            <button type="button" class="d-none" id="navAdmin" data-page="admin" data-roles="admin"><span>Yönetim</span></button>
+            <button type="button" class="d-none" data-page="pwreset-requests" data-roles="admin"><span>Şifre İstekleri</span></button>
+            <button type="button" data-page="profile" data-roles="individual,organization,admin"><span>Profil</span></button>
           </nav>
           <div class="sidebar-footer">
             <div class="user-profile" id="userProfile">
@@ -173,6 +329,9 @@
 
           <!-- Dashboard Page -->
           <div id="page-dashboard" class="page-content">
+
+            <!-- ─── Organizasyon / Admin görünümü ─────────────────── -->
+            <div id="orgAdminDashboard">
             <!-- Organization / Admin metrikleri -->
             <section class="metric-grid d-none" id="metricsOrgAdmin" aria-label="Satış metrikleri">
               <article class="metric-card">
@@ -277,24 +436,60 @@
                 <button class="btn btn-success w-100" id="btnPlaceOrder" disabled>Sipariş Oluştur</button>
               </aside>
             </section>
+            </div><!-- /orgAdminDashboard -->
+
+            <!-- ─── Bireysel kullanıcı görünümü ──────────────────── -->
+            <div id="indivDashboard" class="d-none">
+              <div class="indiv-hero">
+                <div class="indiv-hero-text">
+                  <p class="eyebrow">Hoş geldin</p>
+                  <h2 class="indiv-hero-name" id="indivHeroTitle">Kullanıcı</h2>
+                  <p class="text-muted small mb-0">Etkinlikleri keşfet, biletini hemen al.</p>
+                </div>
+                <div class="indiv-stats-row">
+                  <div class="indiv-stat-pill"><strong id="indivStatSpent">₺0</strong><span>Harcama</span></div>
+                  <div class="indiv-stat-pill"><strong id="indivStatTickets">0</strong><span>Bilet</span></div>
+                  <div class="indiv-stat-pill"><strong id="indivStatOrders">0</strong><span>Sipariş</span></div>
+                  <div class="indiv-stat-pill"><strong id="indivStatSubs">0</strong><span>Takip</span></div>
+                </div>
+              </div>
+              <div class="indiv-section-head">
+                <p class="eyebrow">Yaklaşan etkinlikler</p>
+                <h3 class="indiv-section-title">Seni neler bekliyor?</h3>
+              </div>
+              <div id="indivEventCardGrid" class="indiv-event-grid">
+                <div class="text-center text-muted py-5"><small>Yükleniyor...</small></div>
+              </div>
+            </div><!-- /indivDashboard -->
+
           </div>
 
           <!-- Events Page -->
           <div id="page-events" class="page-content d-none">
-            <section class="panel">
-              <div class="panel-heading">
-                <div>
-                  <p class="eyebrow">Etkinlikler</p>
-                  <h2>Tüm Etkinlikler</h2>
+            <!-- Org / Admin: liste görünümü -->
+            <div id="orgEventsSection">
+              <section class="panel">
+                <div class="panel-heading">
+                  <div>
+                    <p class="eyebrow">Etkinlikler</p>
+                    <h2>Tüm Etkinlikler</h2>
+                  </div>
+                  <button class="btn btn-sm btn-primary d-none" id="btnNewEvent2">Yeni Etkinlik</button>
                 </div>
-                <button class="btn btn-sm btn-primary d-none" id="btnNewEvent2">Yeni Etkinlik</button>
-              </div>
-              <div class="event-list" id="eventListFull">
-                <div class="text-center text-muted py-4">
-                  <small>Henüz etkinlik yok.</small>
+                <div class="event-list" id="eventListFull">
+                  <div class="text-center text-muted py-4"><small>Henüz etkinlik yok.</small></div>
                 </div>
+              </section>
+            </div>
+            <!-- Bireysel: kart görünümü -->
+            <div id="indivEventsSection" class="d-none">
+              <div class="panel-heading mb-4" style="padding:0 4px">
+                <div><p class="eyebrow">Etkinlikler</p><h2>Tüm Etkinlikler</h2></div>
               </div>
-            </section>
+              <div id="indivEventListCards" class="indiv-event-grid">
+                <div class="text-center text-muted py-5"><small>Yükleniyor...</small></div>
+              </div>
+            </div>
           </div>
 
           <!-- Buy Page (Bilet Al) -->
@@ -362,6 +557,7 @@
                     <span class="seat-legend-item"><span class="seat-sample seat-available"></span> Boş</span>
                     <span class="seat-legend-item"><span class="seat-sample seat-selected"></span> Seçili</span>
                     <span class="seat-legend-item"><span class="seat-sample seat-sold"></span> Dolu</span>
+                    <span class="seat-legend-item"><span class="seat-sample seat-sold-vip"></span> VIP Dolu</span>
                   </div>
                   <div class="seat-stage">SAHNE</div>
                   <div class="seat-grid" id="seatGrid">
@@ -377,50 +573,51 @@
             <section class="panel">
               <div class="panel-heading">
                 <div>
-                  <p class="eyebrow">Bilet Tipleri</p>
-                  <h2>Bilet Türleri</h2>
+                  <p class="eyebrow">Bilet Türleri</p>
+                  <h2>Fiyat &amp; Tür Yönetimi</h2>
                 </div>
               </div>
               <div class="text-center text-muted py-4">
-                <small>Bilet tipleri yönetimi yakında eklenecek.</small>
+                <small>Bilet türü yönetimi yakında eklenecek.</small>
               </div>
             </section>
           </div>
 
           <!-- Orders Page -->
           <div id="page-orders" class="page-content d-none">
-            <section class="panel orders-panel">
-              <div class="panel-heading">
-                <div>
-                  <p class="eyebrow">Siparişler</p>
-                  <h2>Son işlemler</h2>
+            <!-- Org / Admin: tablo görünümü -->
+            <div id="orgAdminOrdersSection">
+              <section class="panel orders-panel">
+                <div class="panel-heading">
+                  <div><p class="eyebrow">Siparişler</p><h2>Son işlemler</h2></div>
+                  <span class="sync-state">Güncel</span>
                 </div>
+                <div class="table-responsive">
+                  <table class="table align-middle mb-0">
+                    <thead>
+                      <tr>
+                        <th>Kod</th><th>Etkinlik</th><th>Müşteri</th>
+                        <th>Bilet</th><th>Adet</th><th>Koltuk</th>
+                        <th>Tutar</th><th>Tarih</th>
+                      </tr>
+                    </thead>
+                    <tbody id="ordersList">
+                      <tr><td colspan="8" class="text-center text-muted py-4"><small>Henüz sipariş yok</small></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+            <!-- Bireysel: görsel bilet kartları -->
+            <div id="indivMyTickets" class="d-none">
+              <div class="panel-heading mb-4" style="padding:0 4px">
+                <div><p class="eyebrow">Biletlerim</p><h2>Satın Aldığım Biletler</h2></div>
                 <span class="sync-state">Güncel</span>
               </div>
-              <div class="table-responsive">
-                <table class="table align-middle mb-0">
-                  <thead>
-                    <tr>
-                      <th>Kod</th>
-                      <th>Etkinlik</th>
-                      <th>Müşteri</th>
-                      <th>Bilet</th>
-                      <th>Adet</th>
-                      <th>Koltuk</th>
-                      <th>Tutar</th>
-                      <th>Tarih</th>
-                    </tr>
-                  </thead>
-                  <tbody id="ordersList">
-                    <tr>
-                      <td colspan="8" class="text-center text-muted py-4">
-                        <small>Henüz sipariş yok</small>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div id="indivTicketGrid" class="indiv-ticket-grid">
+                <div class="text-center text-muted py-5"><small>Henüz bilet yok.</small></div>
               </div>
-            </section>
+            </div>
           </div>
 
           <!-- Checkin Page -->
@@ -428,12 +625,12 @@
             <section class="panel">
               <div class="panel-heading">
                 <div>
-                  <p class="eyebrow">Giriş Kontrol</p>
-                  <h2>QR Kod Okuma</h2>
+                  <p class="eyebrow">Kapı Kontrolü</p>
+                  <h2>QR Kod ile Giriş</h2>
                 </div>
               </div>
               <div class="text-center text-muted py-4">
-                <small>Giriş kontrol sistemi yakında eklenecek.</small>
+                <small>Kapı kontrol sistemi yakında eklenecek.</small>
               </div>
             </section>
           </div>
@@ -443,8 +640,8 @@
             <section class="panel mb-3">
               <div class="panel-heading">
                 <div>
-                  <p class="eyebrow">Admin</p>
-                  <h2>Bekleyen Organizasyonlar</h2>
+                  <p class="eyebrow">Yönetim</p>
+                  <h2>Onay Bekleyen Organizasyonlar</h2>
                 </div>
               </div>
               <div class="table-responsive">
@@ -470,7 +667,7 @@
             <section class="panel">
               <div class="panel-heading">
                 <div>
-                  <p class="eyebrow">Admin</p>
+                  <p class="eyebrow">Yönetim</p>
                   <h2>Tüm Kullanıcılar</h2>
                 </div>
                 <button class="btn btn-sm btn-outline-secondary" id="btnRefreshUsers">Yenile</button>
@@ -484,7 +681,7 @@
                       <th>E-posta</th>
                       <th>Rol</th>
                       <th>Onay</th>
-                      <th>Admin</th>
+                      <th>Yönetici</th>
                       <th>Tarih</th>
                       <th>İşlem</th>
                     </tr>
@@ -499,10 +696,108 @@
             </section>
           </div>
 
+          <!-- Şifre Talepleri Page -->
+          <div id="page-pwreset-requests" class="page-content d-none">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <h2 class="panel-title">Şifre Sıfırlama İstekleri</h2>
+                  <p class="panel-sub">Kullanıcıların şifre sıfırlama taleplerini incele ve karara bağla.</p>
+                </div>
+                <button class="btn btn-sm btn-outline-secondary" id="btnRefreshPwResets">Yenile</button>
+              </div>
+              <div id="pwResetList" class="pwreset-card-list">
+                <p class="text-muted text-center py-4" style="font-size:0.9rem">Yükleniyor...</p>
+              </div>
+            </section>
+          </div>
+
+          <!-- Profile Page -->
+          <div id="page-profile" class="page-content d-none">
+            <div class="profile-layout">
+
+              <!-- Sol: Avatar + Hesap Bilgisi -->
+              <div class="profile-sidebar-card">
+                <div class="profile-avatar-wrap">
+                  <div class="profile-avatar-lg" id="profileAvatarLg">A</div>
+                  <div class="profile-avatar-hint">İlk harf otomatik güncellenir</div>
+                </div>
+                <div class="profile-info-list">
+                  <div class="profile-info-item">
+                    <span class="profile-info-label">E-posta</span>
+                    <span class="profile-info-value" id="profileEmail">-</span>
+                  </div>
+                  <div class="profile-info-item">
+                    <span class="profile-info-label">Hesap Türü</span>
+                    <span class="profile-info-value" id="profileRoleBadge">-</span>
+                  </div>
+                  <div class="profile-info-item">
+                    <span class="profile-info-label">Üyelik Tarihi</span>
+                    <span class="profile-info-value" id="profileCreatedAt">-</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sağ: Düzenleme Formları -->
+              <div class="profile-forms">
+
+                <section class="panel profile-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <h2 class="panel-title">Temel Bilgiler</h2>
+                      <p class="panel-subtitle">İsim ve profil bilgilerini güncelle</p>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Ad Soyad</label>
+                      <input class="form-control" id="profileDisplayName" type="text" placeholder="Adınız" />
+                    </div>
+                    <div id="profileOrgFields" class="d-none">
+                      <div class="mb-3">
+                        <label class="form-label fw-semibold">Organizasyon Açıklaması</label>
+                        <textarea class="form-control" id="profileBio" rows="3" placeholder="Organizasyonunuz hakkında kısa bir açıklama..."></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label fw-semibold">Web Sitesi</label>
+                        <input class="form-control" id="profileWebsite" type="url" placeholder="https://ornek.com" />
+                      </div>
+                    </div>
+                    <button class="btn btn-primary" id="btnSaveBasicInfo">Değişiklikleri Kaydet</button>
+                  </div>
+                </section>
+
+                <section class="panel profile-panel mt-3">
+                  <div class="panel-heading">
+                    <div>
+                      <h2 class="panel-title">Şifre Değiştir</h2>
+                      <p class="panel-subtitle">Hesabınızı güvende tutun</p>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Mevcut Şifre</label>
+                      <input class="form-control" id="profileCurrentPw" type="password" autocomplete="current-password" placeholder="••••••••" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Yeni Şifre</label>
+                      <input class="form-control" id="profileNewPw" type="password" autocomplete="new-password" placeholder="En az 8 karakter" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Yeni Şifre (Tekrar)</label>
+                      <input class="form-control" id="profileNewPwConfirm" type="password" autocomplete="new-password" placeholder="••••••••" />
+                    </div>
+                    <button class="btn btn-warning" id="btnChangePassword">Şifreyi Güncelle</button>
+                  </div>
+                </section>
+
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastRoot"></div>
 
       <!-- Gizlilik Politikası Modalı -->
       <div class="modal fade" id="privacyModal" tabindex="-1" aria-hidden="true">
@@ -693,6 +988,258 @@
         </div>
       </div>
     </main>
+
+    <!-- Global toast container (both apps) -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastRoot"></div>
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  BİREYSEL KULLANICI UYGULAMASI (tamamen farklı UI)  ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <section id="indivApp" class="d-none">
+
+      <!-- ── Top Navigation ─────────────────────────────────── -->
+      <nav class="cn-nav">
+        <div class="cn-nav-inner">
+          <div class="cn-brand">
+            <span class="brand-mark" style="width:28px;height:28px;font-size:0.75rem">A</span>
+            <span class="cn-brand-name">Alpaca</span>
+          </div>
+          <div class="cn-links">
+            <button class="cn-link active" data-cn-page="home">🎫 Keşfet</button>
+            <button class="cn-link" data-cn-page="events">Tüm Etkinlikler</button>
+            <button class="cn-link" data-cn-page="tickets">Biletlerim</button>
+            <button class="cn-link" data-cn-page="profile">Profilim</button>
+          </div>
+          <div class="cn-user">
+            <div class="cn-avatar" id="cnAvatar">A</div>
+            <span class="cn-user-name" id="cnUserName">Kullanıcı</span>
+            <button class="cn-logout" id="cnBtnLogout">Çıkış</button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- ── Home / Keşfet Page ─────────────────────────────── -->
+      <div id="cn-page-home" class="cn-page">
+        <div class="cn-hero">
+          <div class="cn-hero-content">
+            <p class="eyebrow">Hoş geldin</p>
+            <h1 class="cn-hero-title">Merhaba, <span class="cn-hero-name" id="cnHeroName">Kullanıcı</span>!</h1>
+            <p class="cn-hero-sub">Yaklaşan etkinlikleri keşfet, biletini hemen al.</p>
+            <div class="cn-stats">
+              <div class="cn-stat"><strong id="cnStatSpent">₺0</strong><span>Harcama</span></div>
+              <div class="cn-stat"><strong id="cnStatTickets">0</strong><span>Bilet</span></div>
+              <div class="cn-stat"><strong id="cnStatOrders">0</strong><span>Sipariş</span></div>
+              <div class="cn-stat"><strong id="cnStatSubs">0</strong><span>Takip</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="cn-section">
+          <div class="cn-section-head">
+            <h2>Yaklaşan Etkinlikler</h2>
+            <p class="text-muted">Seni neler bekliyor?</p>
+          </div>
+          <div class="cn-grid" id="cnHomeGrid">
+            <div class="text-center text-muted py-5"><small>Yükleniyor...</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tüm Etkinlikler Page ───────────────────────────── -->
+      <div id="cn-page-events" class="cn-page d-none">
+        <div class="cn-section" style="padding-top:32px">
+          <div class="cn-section-head">
+            <h2>Tüm Etkinlikler</h2>
+            <p class="text-muted">Beğendiğin etkinliği seç ve biletini al.</p>
+          </div>
+          <div class="cn-grid" id="cnEventsGrid">
+            <div class="text-center text-muted py-5"><small>Yükleniyor...</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Biletlerim Page ────────────────────────────────── -->
+      <div id="cn-page-tickets" class="cn-page d-none">
+        <div class="cn-section" style="padding-top:32px">
+          <div class="cn-section-head">
+            <h2>Biletlerim</h2>
+            <p class="text-muted">Satın aldığın tüm biletler</p>
+          </div>
+          <div class="cn-ticket-list" id="cnTicketList">
+            <div class="text-center text-muted py-5"><small>Henüz bilet yok.</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Profil Sayfası ────────────────────────────────── -->
+      <div id="cn-page-profile" class="cn-page d-none">
+        <div class="cn-section" style="padding-top:32px">
+          <div class="cn-profile-layout">
+
+            <!-- Avatar Hero Kartı -->
+            <div class="cn-profile-hero">
+              <div class="cn-profile-avatar" id="cnProfileAvatar">A</div>
+              <h2 class="cn-profile-name" id="cnProfileName">Kullanıcı</h2>
+              <p class="cn-profile-email" id="cnProfileEmail">-</p>
+              <span class="badge bg-secondary mt-1" id="cnProfileRoleBadge">Bireysel</span>
+              <p class="cn-profile-since">Üye: <strong id="cnProfileSince">-</strong></p>
+            </div>
+
+            <!-- Formlar -->
+            <div class="cn-profile-forms">
+
+              <!-- Kişisel Bilgiler -->
+              <div class="cn-profile-card">
+                <h3 class="cn-profile-card-title">Kişisel Bilgiler</h3>
+                <div class="mb-3">
+                  <label class="form-label">Ad Soyad</label>
+                  <input class="form-control" id="cnProfileDisplayName" type="text" placeholder="Adınız" />
+                </div>
+                <div class="mb-0">
+                  <label class="form-label">E-posta <span class="text-muted">(değiştirilemez)</span></label>
+                  <input class="form-control" id="cnProfileEmailInput" type="email" disabled />
+                </div>
+                <div class="cn-profile-card-footer">
+                  <button class="btn btn-primary" id="cnBtnSaveInfo">Kaydet</button>
+                </div>
+              </div>
+
+              <!-- Şifre Değişikliği -->
+              <div class="cn-profile-card">
+                <h3 class="cn-profile-card-title">Şifre Değiştir</h3>
+                <div class="mb-3">
+                  <label class="form-label">Mevcut Şifre</label>
+                  <input class="form-control" id="cnProfileCurrPw" type="password" autocomplete="current-password" placeholder="••••••••" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Yeni Şifre</label>
+                  <input class="form-control" id="cnProfileNewPw" type="password" autocomplete="new-password" placeholder="En az 8 karakter" />
+                </div>
+                <div class="mb-0">
+                  <label class="form-label">Yeni Şifre (Tekrar)</label>
+                  <input class="form-control" id="cnProfileNewPwConfirm" type="password" autocomplete="new-password" placeholder="••••••••" />
+                </div>
+                <div class="cn-profile-card-footer">
+                  <button class="btn btn-warning" id="cnBtnChangePw">Şifreyi Güncelle</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="modal fade" id="cnBuyModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content cn-modal-content">
+          <div class="modal-header cn-modal-header">
+            <div>
+              <p class="eyebrow mb-0" style="-webkit-text-fill-color:initial">Bilet Satın Al</p>
+              <h5 class="modal-title mt-1" id="cnBuyModalTitle">Etkinlik</h5>
+            </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="cn-buy-layout">
+              <div class="cn-buy-left">
+                <div class="cn-buy-event-info" id="cnBuyEventInfo">
+                  <p class="text-muted small">Bilgiler yükleniyor...</p>
+                </div>
+                <div class="mt-3">
+                  <label class="form-label fw-semibold">Bilet Türü</label>
+                  <div class="ticket-choice">
+                    <button class="active" type="button" data-cn-ticket="standard">Standart<br><strong id="cnBuyStdPrice">₺-</strong></button>
+                    <button type="button" data-cn-ticket="vip">VIP<br><strong id="cnBuyVipPrice">₺-</strong></button>
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <label class="form-label fw-semibold">Ad Soyad</label>
+                  <input class="form-control" id="cnBuyName" type="text" placeholder="Bilet sahibinin adı" />
+                </div>
+                <div class="cn-buy-summary mt-3">
+                  <div class="cn-buy-row"><span>Seçili koltuk</span><strong id="cnBuyCount">0</strong></div>
+                  <div class="cn-buy-row"><span>Birim fiyat</span><strong id="cnBuyUnit">₺0</strong></div>
+                  <div class="cn-buy-row d-none" id="cnDiscRow"><span>İndirim</span><strong id="cnBuyDisc">-₺0</strong></div>
+                  <div class="cn-buy-row cn-buy-total"><span>Toplam</span><strong id="cnBuyTotal">₺0</strong></div>
+                </div>
+              </div>
+              <div class="cn-buy-right">
+                <label class="form-label fw-semibold">Koltuk Seçimi</label>
+                <div class="seat-legend">
+                  <span class="seat-legend-item"><span class="seat-sample seat-available"></span> Boş</span>
+                  <span class="seat-legend-item"><span class="seat-sample seat-selected"></span> Seçili</span>
+                  <span class="seat-legend-item"><span class="seat-sample seat-sold"></span> Dolu</span>
+                  <span class="seat-legend-item"><span class="seat-sample seat-sold-vip"></span> VIP Dolu</span>
+                </div>
+                <div class="seat-stage">SAHNE</div>
+                <div class="seat-grid" id="cnSeatGrid">
+                  <div class="seat-empty-state">Etkinlik seçilmedi.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer cn-modal-footer">
+            <button class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+            <button class="btn btn-primary px-4" id="cnBuyConfirmBtn" disabled>Satın Al →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Admin: Şifre Talebi Karar Modalı ─────────────── -->
+    <div class="modal fade" id="pwResolveModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered" style="max-width:460px">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="pwResolveModalTitle">Talebi İncele</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div id="pwResolveInfo" class="mb-3 p-3 rounded" style="background:var(--surface);border:1px solid var(--line);font-size:0.85rem"></div>
+            <div class="mb-3">
+              <label class="form-label">Admin Notu <small class="text-muted">(kullanıcı görecek)</small></label>
+              <textarea class="form-control" id="pwResolveNote" rows="3" placeholder="Talebinizi neden onayladığınızı veya reddettiğinizi belirtin..."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer gap-2">
+            <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Vazgeç</button>
+            <button class="btn btn-danger px-4" id="btnPwResolveReject">Reddet</button>
+            <button class="btn btn-success px-4" id="btnPwResolveApprove">Onayla</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Admin: Şifre Sıfırlama Modalı ─────────────────── -->
+    <div class="modal fade" id="pwResetModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered" style="max-width:420px">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Şifre Sıfırla</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-muted small mb-3" id="pwResetUserInfo"></p>
+            <div class="mb-3">
+              <label class="form-label">Yeni Şifre</label>
+              <div class="auth-input-wrap">
+                <input type="password" class="form-control" id="pwResetInput" placeholder="En az 8 karakter" autocomplete="new-password" />
+                <button type="button" class="pw-toggle" data-target="pwResetInput" aria-label="Şifreyi göster/gizle">
+                  <svg class="pw-eye-icon pw-eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg class="pw-eye-icon pw-eye-hide d-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+            </div>
+            <div id="pwResetAlert" class="alert alert-danger d-none py-2 small"></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+            <button class="btn btn-warning px-4" id="pwResetConfirmBtn">Sıfırla</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./renderer.js"></script>
